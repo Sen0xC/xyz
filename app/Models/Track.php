@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Track extends Model
 {
@@ -22,6 +23,7 @@ class Track extends Model
         'artist',
         'url',
         'name',
+        'category_id',
     ];
 
     /**
@@ -77,5 +79,10 @@ class Track extends Model
     public function getCategoryNameAttribute()
     {
         return $this->category ? $this->category->name : 'No Category';
+    }
+
+    public function tracks(): HasMany
+    {
+        return $this->hasMany(Track::class);
     }
 }

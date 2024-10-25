@@ -14,10 +14,14 @@
                 <dt>Titre</dt>
                 <dd>{{ $track->title }}</dd>
 
-                @if($track->category)
-                    <dt>Catégorie</dt>
-                    <dd>{{ $track->category->name }}</dd>
-                @endif
+                <dt>Catégorie</dt>
+                <dd>
+                    @if($track->category)
+                        <a href="{{ route('app.categories.show', ['category' => $track->category->id]) }}" class="link">{{ $track->category->name }}</a>
+                    @else
+                        <span>Non catégorisé</span>
+                    @endif
+                </dd>
 
                 <dt>Contributeur</dt>
                 <dd class="flex-center">

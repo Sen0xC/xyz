@@ -37,7 +37,7 @@
 
                 <div>
                     <label for="category_id">Catégorie</label>
-                    <select name="category_id" id="category_id">
+                    <select name="category_id" id="category_id" required>
                         <option value="" selected disabled>Sélectionner une catégorie</option>
                         @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>

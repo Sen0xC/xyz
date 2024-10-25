@@ -50,7 +50,9 @@ class TrackController extends Controller
     {
         $this->authorize('create', Track::class);
 
-        $validated = $request->validate([
+        $validatedData = $request->validate([
+            'url' => 'required|url',
+            'category_id' => 'required|exists:categories,id',
             'title' => ['required', 'string', 'max:255'],
             'artist' => ['required', 'string', 'max:255'],
             'url' => ['required', 'url', new PlayerUrl()],
@@ -60,11 +62,14 @@ class TrackController extends Controller
         DB::beginTransaction();
 
         // Set track title, artist and url
-        $track = new Track($validated);
+        $track = new Track($validatedData);
 
         // Set track's user + week
         $track->user()->associate($request->user());
         $track->week()->associate(Week::current());
+
+        // Set category_id
+        $track->category_id = $validatedData['category_id'];
 
         try {
             // Fetch track detail from provider (YT, SC)

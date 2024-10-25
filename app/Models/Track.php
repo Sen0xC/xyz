@@ -21,6 +21,7 @@ class Track extends Model
         'title',
         'artist',
         'url',
+        'name',
     ];
 
     /**
@@ -66,5 +67,15 @@ class Track extends Model
         return $query->withCount('likes')
             ->orderBy('likes_count', 'desc')
             ->orderBy('created_at', 'asc');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function getCategoryNameAttribute()
+    {
+        return $this->category ? $this->category->name : 'No Category';
     }
 }

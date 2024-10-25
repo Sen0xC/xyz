@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Week;
+use App\Models\Track;
 
 class WeekController extends Controller
 {
@@ -21,10 +22,12 @@ class WeekController extends Controller
      */
     public function show(Week $week)
     {
+        $tracks = Track::with(['category', 'user'])->currentWeek()->ranking()->get();
+
         return view('app.weeks.show', [
             'week' => $week->loadCount('tracks'),
             'isCurrent' => $week->toPeriod()->contains(now()),
-            'tracks' => $week->tracks()->with('user')->withCount('likes')->ranking()->get()
+            'tracks' => $tracks
         ]);
     }
 }

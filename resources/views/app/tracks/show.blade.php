@@ -14,6 +14,11 @@
                 <dt>Titre</dt>
                 <dd>{{ $track->title }}</dd>
 
+                @if($track->category)
+                    <dt>Catégorie</dt>
+                    <dd>{{ $track->category->name }}</dd>
+                @endif
+
                 <dt>Contributeur</dt>
                 <dd class="flex-center">
                     <x-avatar size="medium" :src="$track->user->avatar" /> {{ $track->user->username }}

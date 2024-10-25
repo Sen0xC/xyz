@@ -1,6 +1,5 @@
 <x-app :title="$category->name">
-    <main class="container-wide two-cols space-y-8">
-
+    <main class="container-wide space-y-8">
         <section>
             <h1>
                 {{ $category->name }} <small>{{ trans_choice('tracks.count', $tracks->total()) }}</small>
@@ -50,9 +49,5 @@
             {{ $tracks->links('components.pagination') }}
             @endif
         </section>
-
-        <div>
-            {{--  --}}
-        </div>
     </main>
 </x-app>
